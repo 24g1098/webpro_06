@@ -40,6 +40,9 @@ app.get("/janken", (req, res) => {
   // ここに勝敗の判定を入れる
   // 今はダミーで人間の勝ちにしておく
   let judgement = '勝ち';
+  if((num==1&&hand=='チョキ')||(num==2&&hand=='パー')||(num==3&&hand=='グー'))
+    judgement = '負け';
+  
   win += 1;
   total += 1;
   const display = {
