@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>ナゾ</title>
+</head>
+<body>
+    <h1>ナゾの問題</h1>
+    <p>問題：<%= cpu %></p>
+    <p>答え：<%= your %></p>
+    <p>判定：<%= judgement %></p>
+    <p>現在 <%= total %> 問題中、<%= win %> 回正解しています。</p>
+    <hr>
+
+    <% if (judgement === '不正解') { %>
+        <p><%= comment %></p>
+    <% } %>
+
+    <form action="/naz" method="get">
+        <input type="text" name="kotae" required>
+        <label for="kotae">こたえは？</label>
+        <br>
+        <input type="hidden" name="win" value="<%= win %>">
+        <input type="hidden" name="total" value="<%= total %>">
+        <input type="submit" value="次の問題">
+    </form>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>ガチャ</title>
+</head>
+<body>
+    <p>このウェブを再読み込みしてガチャを引こう！．</p>
+    <p>今回のレアリティは<%= gty %>です．</p>
+    <p>現在<%= fes %></p>
+    <hr>
+    <form action="/gatya" method="GET">
+        <input type="hidden" name="gty" value="<%= gty %>">
+        <input type="hidden" name="numm" value="<%= numm %>">
+        <input type="submit" value="ガチャ ポン">
+    </form>   
+</body>
+</html>

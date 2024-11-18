@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>ナゾの問題</title>
+</head>
+<body>
+    <h1>ナゾの問題</h1>
+
+    <% if (total >= 5) { %>
+        <p><%= comment %></p>  <!-- 終了メッセージを表示 -->
+        <p>現在 <%= total %> 問題中、<%= seikai %> 回正解しています。</p>
+    <% } else { %>
+        <p>問題：<%= cpu %></p>
+        <p>答え：<%= your %></p>
+        <p>判定：<%= judgement %></p>
+        <p>現在 <%= total %> 問題中、<%= seikai %> 回正解しています。</p>
+        <hr>
+
+        
+
+        <form action="/nazo" method="get">
+            <input type="text" name="kotae" required>
+            <label for="kotae">こたえは？</label>
+            <br>
+            <input type="hidden" name="seikai" value="<%= seikai %>">
+            <input type="hidden" name="total" value="<%= total %>">
+            <input type="submit" value="次の問題">
+        </form>
+
+        
+    <% } %>
+</body>
+</html>
