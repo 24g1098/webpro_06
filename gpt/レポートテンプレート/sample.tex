@@ -1,0 +1,127 @@
+\documentclass[uplatex,dvipdfmx]{jsarticle}
+
+\usepackage[uplatex,deluxe]{otf} % UTF
+\usepackage[noalphabet]{pxchfon} % must be after otf package
+\usepackage{stix2} %欧文＆数式フォント
+\usepackage[fleqn,tbtags]{mathtools} % 数式関連 (w/ amsmath)
+\usepackage{hira-stix} % ヒラギノフォント＆STIX2 フォント代替定義（Warning回避）
+
+\usepackage{listings} % listingsパッケージを読み込む
+
+\lstset{
+  basicstyle={\ttfamily}, % 基本となるフォントスタイル（typewriterフォント）
+  identifierstyle={\small}, % 識別子のフォントスタイル
+  commentstyle={\small\itshape}, % コメントのフォントスタイル
+  keywordstyle={\small\bfseries}, % キーワード（予約語）のフォントスタイル
+  ndkeywordstyle={\small}, % 追加のキーワードのフォントスタイル
+  stringstyle={\small\ttfamily}, % 文字列のフォントスタイル
+  frame={tb}, % ソースコードを囲む枠のスタイル（上下に線を表示）
+  breaklines=true, % 長い行を改行するかどうか
+  columns=[l]{fullflexible}, % ソースコードの文字幅の調整方法
+  numbers=left, % 行番号を左側に表示する
+  xrightmargin=0zw, % 右側の余白
+  xleftmargin=3zw, % 左側の余白
+  numberstyle={\scriptsize}, % 行番号のフォントサイズ
+  stepnumber=1, % 行番号を表示するステップ
+  numbersep=1zw, % 行番号とソースコード間のスペース
+  lineskip=-0.5ex % 行間の調整
+}
+
+\begin{document}
+
+\title{メモりある　仕様書} %システム名 仕様書 という形式にする
+\author{24G1098 手代木巧}
+\date{2025年1月7日}
+\maketitle
+
+\section{概要}
+本仕様書では、シングルページアプリケーション（SPA）「メモりある」の機能および実装について説明します。本アプリケーションは、メモの作成・閲覧・削除が可能な簡易的なメモ管理システムです。
+
+\section{利用者向け}
+\subsection{アプリケーション概要}
+本アプリケーションは、利用者が簡単にメモを作成し、保存・削除することができるシステムです。
+
+\subsection{主な機能}
+\begin{itemize}
+    \item メモの作成：入力欄に文字を入力し「メモを追加」ボタンを押すとメモが保存されます。
+    \item メモの一覧表示：作成したメモがリスト形式で画面下部に表示されます。
+    \item メモの削除：各メモの右側にある「メモを消去」ボタンでメモを削除できます。
+\end{itemize}
+
+\subsection{使用方法}
+\begin{enumerate}
+    \item アプリケーションをブラウザで開きます。
+    \item 入力欄にメモを記入し、「メモを追加」ボタンを押して保存します。
+    \item 画面下部のメモ一覧から削除したいメモを「メモを消去」ボタンで削除します。
+\end{enumerate}
+
+\section{管理者向け}
+\subsection{管理業務}
+\begin{itemize}
+    \item サーバーの起動：Node.jsでサーバーを実行します。
+    \item データ管理：アプリケーションのメモデータはサーバーで一時的に保持されます。
+    \item エラー対応：エラー発生時はログを確認して対応します。
+\end{itemize}
+
+\subsection{実行方法}
+\begin{lstlisting}[caption=サーバーの起動コマンド]
+node sav.js
+\end{lstlisting}
+
+\subsection{メンテナンス手順}
+\begin{itemize}
+    \item サーバーの再起動：
+    \begin{lstlisting}
+ctrl + c # サーバー停止
+node sav.js # サーバー再起動
+    \end{lstlisting}
+    \item 静的ファイルの変更時は、更新内容が反映されているか確認してください。
+\end{itemize}
+
+\section{開発者向け}
+\subsection{通信仕様}
+\begin{itemize}
+    \item メモの追加（POST \texttt{/memos}）
+    \begin{lstlisting}[caption=リクエスト例]
+{
+  "text": "新しいメモの内容"
+}
+    \end{lstlisting}
+
+    \begin{lstlisting}[caption=レスポンス例]
+{
+  "success": true,
+  "memos": ["新しいメモの内容"]
+}
+    \end{lstlisting}
+
+    \item メモの削除（POST \texttt{/memos/delete}）
+    \begin{lstlisting}[caption=リクエスト例]
+{
+  "index": 0
+}
+    \end{lstlisting}
+
+    \begin{lstlisting}[caption=レスポンス例]
+{
+  "success": true,
+  "memos": []
+}
+    \end{lstlisting}
+\end{itemize}
+
+\subsection{開発環境}
+\begin{itemize}
+    \item 使用技術：
+    \begin{itemize}
+        \item Node.js（Express）
+        \item HTML/CSS/JavaScript
+    \end{itemize}
+    \item 環境構築：
+    \begin{lstlisting}[caption=環境構築コマンド]
+npm install # 必要な依存関係をインストール
+node sav.js # サーバーを起動
+    \end{lstlisting}
+\end{itemize}
+
+\end{document}
